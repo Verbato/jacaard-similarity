@@ -56,7 +56,7 @@ def main(args):
     paths = glob.glob(files_path)
 
     for file_path in paths:
-        print(ntpath.basename(file_path))
+        # print(ntpath.basename(file_path))
         # create jobs
         with open(file_path, encoding='utf-8') as f:
             for ID, current_line in enumerate(f):
@@ -109,9 +109,15 @@ def main(args):
                 pairs.append([item, next_item, similarity])
                 second_counter += 1
             main_counter += 1
-
+        f = open("output.txt", "a+", encoding='utf-8')
+        f.write(ntpath.basename(file_path))
+        f.write('\n')
+        f.write('-----------')
+        f.write('\n')
         for pair in pairs:
-            print(pair)
+            f.write(','.join([str(item) for item in pair]))
+            f.write('\n')
+        f.close()
 
     # clean up
     pool.close()
